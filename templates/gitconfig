@@ -1,0 +1,27 @@
+# {{ansible_managed}}
+
+# Simplified .gitconfig which does not include user information
+[alias]
+	st = status -s
+	co = checkout
+	ci = commit
+	br = branch
+	df = diff
+	dfs = diff --staged
+	lg = log --oneline --decorate --graph --abbrev-commit
+[push]
+	default = simple
+[pull]
+	rebase = true
+[rerere]
+	enabled = true
+[filter "hawser"]
+	clean = git hawser clean %f
+	smudge = git hawser smudge %f
+	required = true
+[filter "lfs"]
+	clean = git lfs clean %f
+	smudge = git lfs smudge %f
+	required = true
+[color]
+	ui = true
