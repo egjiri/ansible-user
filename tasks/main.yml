@@ -7,3 +7,11 @@
   become_user: "{{item}}"
   with_items: "{{profile_users}}"
 
+- name: create .git-completion.bash file
+  template:
+    dest: ~/.git-completion.bash
+    src: git-completion.bash
+  become: true
+  become_user: "{{item}}"
+  with_items: "{{profile_users}}"
+
