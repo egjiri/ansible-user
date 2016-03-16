@@ -1,4 +1,12 @@
 ---
+- name: create a {{item}} system user
+  user:
+    name: "{{item}}"
+    shell: /bin/bash
+    system: true
+  become: true
+  with_items: "{{system_users}}"
+
 - name: create .bash_profile file
   template:
     dest: ~/.bash_profile

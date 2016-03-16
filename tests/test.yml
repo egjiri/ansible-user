@@ -2,4 +2,4 @@
 - hosts: localhost
   remote_user: root
   roles:
-    - egjiri.user-profile
+    - egjiri.user
