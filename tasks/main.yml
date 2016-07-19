@@ -8,7 +8,7 @@
   with_items: "{{system_users}}"
 
 - name: create .bash_profile file
-  template:
+  copy:
     dest: ~/.bash_profile
     src: bash_profile
   become: true
@@ -16,7 +16,7 @@
   with_items: "{{profile_users}}"
 
 - name: create .git-completion.bash file
-  template:
+  copy:
     dest: ~/.git-completion.bash
     src: git-completion.bash
   become: true
@@ -24,7 +24,7 @@
   with_items: "{{profile_users}}"
 
 - name: create .gitconfig file
-  template:
+  copy:
     dest: ~/.gitconfig
     src: gitconfig
   become: true
