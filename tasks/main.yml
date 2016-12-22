@@ -14,6 +14,7 @@
   become: true
   become_user: "{{item}}"
   with_items: "{{profile_users}}"
+  when: user_configs | intersect(['profile'])
 
 - name: create .git-completion.bash file
   copy:
@@ -22,6 +23,7 @@
   become: true
   become_user: "{{item}}"
   with_items: "{{profile_users}}"
+  when: user_configs | intersect(['git'])
 
 - name: create .gitconfig file
   copy:
@@ -30,3 +32,4 @@
   become: true
   become_user: "{{item}}"
   with_items: "{{profile_users}}"
+  when: user_configs | intersect(['git'])
