@@ -6,7 +6,7 @@
 	co = checkout
 	ci = commit
 	ca = commit --amend -C HEAD
-	br = branch
+	br = branch --sort=-committerdate
 	df = diff
 	dfs = diff --staged
 	lg = log --oneline --decorate --graph --abbrev-commit

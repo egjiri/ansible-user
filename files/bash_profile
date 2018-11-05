@@ -4,7 +4,7 @@
 if [ -f ~/.bashrc ]; then source ~/.bashrc; fi
 
 # Custom User config
-alias ll="ls -lahG"
+alias ll="ls -lAhG"
 
 # History
 export HISTTIMEFORMAT="%b %d %I:%M %p	 "
@@ -22,7 +22,7 @@ export PATH="./bin:$PATH"
 ### Git autocompletion, prompt coloring, and aliases
 if [ -f ~/.git-completion.bash ]; then
 	source ~/.git-completion.bash
-	# The following 3 functions are to customize the git prompt.
+	# The following 3 functions are to customize the git prompt. This custom solution WORKS.
 	function parse_git_dirty {
 		[[ $(git status 2> /dev/null | tail -n1) != "nothing to commit (working directory clean)" ]] && echo ""
 	}
@@ -30,11 +30,19 @@ if [ -f ~/.git-completion.bash ]; then
 		git branch --no-color 2> /dev/null | sed -e '/^[^*]/d' -e "s/* \(.*\)/[\1$(parse_git_dirty)] /"
 	}
 	function beautify_git_prompt {
-		local ORANGE="\[\e[28;1m\]"
-		local ORIGINAL="\[\033[m\]"
-    local GREEN="\e[32m"
-    local CYAN="\e[36m"
-		PS1="$CYAN\u@\h$ORIGINAL $ORANGE\W $GREEN\$(parse_git_branch)$ORIGINAL\$ "	# PS1="$ORANGE\W $GREEN\$(git branch | awk '/\* /') $ORIGINAL\$ "
+		PROMPT_COMMAND="__prompt_command; $PROMPT_COMMAND"
+		__prompt_command() {
+			local EXIT="$?"
+			local      RED="\[\e[0;31m\]"
+			local    GREEN="\[\e[0;32m\]"
+			local   ORANGE="\[\e[28;1m\]"
+			local ORIGINAL="\[\e[m\]"
+			PS1="$ORANGE\W $GREEN\$(parse_git_branch)"
+			if [ $EXIT != 0 ]; then
+				PS1+="😡 " # Show angry emonji when the previous commands failsgo
+			fi
+			PS1+="$ORIGINAL\$ "
+		}
 	}
 	beautify_git_prompt
 	alias gitlog="git log --graph --oneline --decorate -25"
